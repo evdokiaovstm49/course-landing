@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФотоПерспектива — Курсы современной фотографии</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-blue: #0a192f;
+            --medium-blue: #112240;
+            --light-blue: #233554;
+            --accent-cyan: #00d4ff;
+            --text-white: #e6f1ff;
+            --text-gray: #8892b0;
+            --transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-blue);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* --- НАВИГАЦИЯ --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background: rgba(10, 25, 47, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between; /* Расталкивает логотип и кнопку по краям */
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin: 0 40px; /* Отступы между ссылками и боковыми элементами */
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-white);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .btn-header {
+            flex-shrink: 0;
+        }
+
+        /* --- ГЛАВНЫЙ ЭКРАН --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.85)), 
+                        url('https://images.unsplash.com/photo-1452780212940-6f5c0d14d84a?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 8vw, 5rem);
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--accent-cyan);
+            color: var(--dark-blue);
+        }
+
+        /* --- ИСТОРИЯ --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 450px;
+            background-image: url('https://images.unsplash.com/photo-1493863641943-9b68992a8d07?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+            box-shadow: 20px 20px 0px var(--accent-cyan);
+        }
+
+        /* --- КУРСЫ --- */
+        .courses-grid-top {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .vip-row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .course-card {
+            background: var(--medium-blue);
+            padding: 40px 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border-bottom: 4px solid transparent;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            background: var(--light-blue);
+            border-bottom-color: var(--accent-cyan);
+        }
+
+        .vip-card {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .course-card h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .course-features li {
+            margin-bottom: 10px;
+            color: var(--text-gray);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .course-features li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        .course-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        /* --- КОНТАКТЫ --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .info-item {
+            margin-bottom: 25px;
+            color: var(--text-gray);
+        }
+
+        .info-item strong {
+            color: var(--text-white);
+            display: inline-block;
+            width: 130px;
+        }
+
+        .contact-map {
+            width: 100%;
+            height: 300px;
+            background: var(--medium-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--light-blue);
+            color: var(--text-gray);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            border-top: 1px solid var(--light-blue);
+            color: var(--text-gray);
+        }
+
+        /* --- АДАПТИВНОСТЬ (MOBILE FIXES) --- */
+        @media (max-width: 768px) {
+            header {
+                height: 80px;
+            }
+
+            nav {
+                padding: 0 5px; /* Дополнительный отступ внутри навигации */
+            }
+
+            .logo {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .nav-links {
+                display: none; /* Скрываем ссылки для простоты */
+            }
+
+            .btn-header {
+                padding: 8px 15px;
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                background-attachment: scroll !important; /* Важно для мобильных */
+            }
+
+            .about-content {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .about-image {
+                display: block !important; /* Принудительное отображение */
+                visibility: visible !important;
+                height: 350px !important; /* Фиксированная высота */
+                order: -1; 
+                margin-bottom: 40px;
+                box-shadow: 10px 10px 0px var(--accent-cyan);
+                background-attachment: scroll !important;
+            }
+
+            .courses-grid-top, .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .vip-card {
+                max-width: 100%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <header>
+        <div class="container" style="width: 100%;">
+            <nav>
+                <a href="#" class="logo">ФОТОПЕРСПЕКТИВА</a>
+                
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">История</a></li>
+                    <li><a href="#courses">Курсы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+
+                <a href="#contact" class="btn btn-header">Связь</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Искусство видеть <br><span style="color: var(--accent-cyan);">вне границ</span></h1>
+            <p>Профессиональное обучение фотографии от азов до мастерства в самой современной студии города.</p>
+            <a href="#courses" class="btn">Программы</a>
+        </div>
+    </section>
+
+    <!-- История -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Наша история</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>История «ФотоПерспективы» началась в 2015 году. Мы верили, что фотография — это не просто техника, а способ запечатлеть душу момента.</p>
+                    <p>Сегодня мы — сообщество из более чем 2000 выпускников. Наша студия оснащена топовым оборудованием, но главное наше богатство — преподаватели-практики.</p>
+                    <p>Мы учим не нажимать на кнопку, а создавать визуальные шедевры, которые остаются в памяти навсегда.</p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Курсы -->
+    <section id="courses" style="background: rgba(17, 34, 64, 0.4);">
+        <div class="container">
+            <h2 class="section-title">Программы обучения</h2>
+            
+            <div class="courses-grid-top">
+                <div class="course-card">
+                    <h3>Старт</h3>
+                    <ul class="course-features">
+                        <li>Устройство камеры</li>
+                        <li>Естественный свет</li>
+                        <li>Основы композиции</li>
+                    </ul>
+                    <div class="course-price">15 000 ₽</div>
+                </div>
+
+                <div class="course-card">
+                    <h3>Профи</h3>
+                    <ul class="course-features">
+                        <li>Студийное оборудование</li>
+                        <li>Профессиональная ретушь</li>
+                        <li>Позирование</li>
+                    </ul>
+                    <div class="course-price">28 000 ₽</div>
+                </div>
+
+                <div class="course-card">
+                    <h3>Мастер</h3>
+                    <ul class="course-features">
+                        <li>Fashion & Beauty</li>
+                        <li>Личный бренд</li>
+                        <li>Выставка работ</li>
+                    </ul>
+                    <div class="course-price">45 000 ₽</div>
+                </div>
+            </div>
+
+            <div class="vip-row">
+                <div class="course-card vip-card">
+                    <h3>VIP Ментор</h3>
+                    <ul class="course-features">
+                        <li>Индивидуальный график</li>
+                        <li>Личное портфолио-ревью</li>
+                        <li>Помощь в трудоустройстве</li>
+                    </ul>
+                    <div class="course-price" style="color: var(--accent-cyan);">90 000 ₽</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Где мы находимся</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item"><strong>Адрес:</strong> ул. Творческая, 101</div>
+                    <div class="info-item"><strong>Время:</strong> 10:00 — 21:00 (Пн-Вс)</div>
+                    <div class="info-item"><strong>Телефон:</strong> +7 (999) 000-00-00</div>
+                    <div class="info-item"><strong>Email:</strong> info@photoperspective.ru</div>
+                </div>
+                <div class="contact-map">
+                    <p>[ Интерактивная карта ]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ФотоПерспектива. Мастерство в каждом кадре.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
